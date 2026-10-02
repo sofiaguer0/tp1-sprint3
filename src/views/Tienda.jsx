@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { productos } from '../data/productos'
 import ProductoList from '../components/ProductoList'
 
-const Tienda = ({ isInList, onToggle }) => {
+const Tienda = () => {
   const [busqueda, setBusqueda] = useState('')
 
   const productosFiltrados = productos.filter((p) =>
@@ -24,7 +24,7 @@ const Tienda = ({ isInList, onToggle }) => {
       {productosFiltrados.length === 0 ? (
         <p>No encontramos nada para "{busqueda}"</p>
       ) : (
-        <ProductoList items={productosFiltrados} isInList={isInList} onToggle={onToggle} />
+        <ProductoList items={productosFiltrados} />
       )}
     </main>
   )

@@ -1,24 +1,36 @@
-import Modal from './ui/Modal'
+import { useCarritoContext } from '../context/CarritoContext'
 import { formatearPrecio } from '../utils/formato'
+import CarritoItem from './CarritoItem'
 
-const CarritoModal = ({ carrito, onQuitar, onVaciar, onCerrar }) => (
-  <Modal titulo={`Mi carrito (${carrito.length})`} onCerrar={onCerrar}>
-    {carrito.length === 0 ? (
-      <p className="text-sm text-(--color-muted)">Tu carrito está vacío, sumá algo de la tienda.</p>
-    ) : (
-      <>
-        <ul className="flex flex-col gap-3">
-          {carrito.map((item) => (
-            <li key={item.id} className="flex items-center justify-between gap-2">
-              <span className="text-sm">{item.nombre} · {formatearPrecio(item.precio)}</span>
-              <button onClick={() => onQuitar(item)} aria-label={`Quitar ${item.nombre}`}>✕</button>
-            </li>
-          ))}
-        </ul>
-        <button onClick={onVaciar} className="mt-4 text-sm">Vaciar carrito</button>
-      </>
-    )}
-  </Modal>
-)
+const CarritoModal = () => {
+  const { carrito, total, vaciar } = useCarritoContext()
+
+  if (carrito.length === 0) {
+    return (
+      <p className="text-sm text-(--color-muted)">
+        Tu carrito está vacío, sumá algo de la tienda.
+      </p>
+    )
+  }
+
+  return (
+    <>
+      <ul className="flex flex-col gap-4">
+        {carrito.map((item) => (
+          <CarritoItem key={item.id} item={item} />
+        ))}
+      </ul>
+
+      <div className="mt-6 flex justify-between border-t border-(--color-border) pt-4 font-bold">
+        <span>Total</span>
+        <span>{formatearPrecio(total)}</span>
+      </div>
+
+      <button onClick={vaciar} className="mt-4 text-sm font-semibold text-(--color-danger)">
+        Vaciar carrito
+      </button>
+    </>
+  )
+}
 
 export default CarritoModal

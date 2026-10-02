@@ -1,24 +1,25 @@
 import { useState } from 'react'
 import { VISTAS } from './data/vistas'
+import { useToggle } from './hooks/useToggle'
 import Navbar from './components/layout/Navbar'
+import Modal from './components/ui/Modal'
 import CarritoModal from './components/CarritoModal'
 import Tienda from './views/Tienda'
-import { useCarrito } from './hooks/useCarrito'
-import { useToggle } from './hooks/useToggle'
 
 const App = () => {
   const [vista] = useState(VISTAS.TIENDA)
-  const { list: carrito, total, isInList, toggle, clear } = useCarrito()
   const [carritoAbierto, toggleCarrito] = useToggle(false)
 
   return (
-    <div className="min-h-screen bg-(--color-bg)">
-      <Navbar cantidadEnLista={total} onAbrirLista={toggleCarrito} />
+    <div className="min-h-screen bg-(--color-bg) text-(--color-text)">
+      <Navbar onAbrirLista={toggleCarrito} />
 
-      {vista === VISTAS.TIENDA && <Tienda isInList={isInList} onToggle={toggle} />}
+      {vista === VISTAS.TIENDA && <Tienda />}
 
       {carritoAbierto && (
-        <CarritoModal carrito={carrito} onQuitar={toggle} onVaciar={clear} onCerrar={toggleCarrito} />
+        <Modal titulo="Mi carrito" onCerrar={toggleCarrito}>
+          <CarritoModal />
+        </Modal>
       )}
     </div>
   )

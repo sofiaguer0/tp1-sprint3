@@ -23,3 +23,11 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
 }
+
+:root[data-theme='oscuro'] {
+  --color-bg: #1a1020;
+  --color-surface: #2a1a35;
+  --color-border: #4a2f5e;
+  --color-text: #f5e9fb;
+  --color-muted: #b9a3c7;
+}

@@ -1,4 +1,4 @@
-export const items = [
+export const productos = [
   {
     id: 1,
     nombre: "Hollow Knight",

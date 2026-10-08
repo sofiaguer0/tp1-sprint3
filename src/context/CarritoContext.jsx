@@ -4,7 +4,7 @@ import { useCarrito } from '../hooks/useCarrito'
 const CarritoContext = createContext(null)   // sin export
 
 export function CarritoProvider({ children }) {
-  const valor = useCarrito()   // tu hook, sin reescribirlo
+  const valor = useCarrito()   
 
   return (
     <CarritoContext.Provider value={valor}>
